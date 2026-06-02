@@ -8,6 +8,9 @@ use App\Infrastructure\Persistence\Eloquent\Patient;
 use App\Application\Patient\UseCases\CreateDietUseCase;
 use App\Infrastructure\Persistence\Eloquent\Diet;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class DietController
@@ -29,15 +32,14 @@ class DietController
             ->latest('uploaded_at')
             ->first();
 
-        return view("diets.index", compact("diets", "patient", "lastDiet"));
+        return view("patients.diets.index", compact("diets", "patient", "lastDiet"));
     }
-
     // View para cadastro de nova dieta para paciente especifico
 
     public function create(Patient $patient): View
     {
 
-        return view("diets.create", compact("patient"));
+        return view("patients.diets.create", compact("patient"));
     }
     // GRAVA NOVA DIETA(PDF) DENTRO DO SISTEMA
     public function store(StoreDietRequest $request, CreateDietUseCase $useCase, Patient $patient): RedirectResponse
@@ -72,9 +74,24 @@ class DietController
     public function show( Patient $patient, Diet $diet): View
 
     {
-        return view('diets.show', compact(
+        return view('patients.diets.show', compact(
             'patient',
             'diet'
         ));
     }
+
+   public function destroy(Diet $diet , Patient $patient)
+   {
+
+          if (Storage::disk('public')->exists($diet->file_path)) {
+              Storage::disk("public")->delete($diet->file_path);
+          }
+
+          $diet->delete();
+
+          return redirect()->route("diets.index",["patient"=>$patient])->with("success","Dieta deletada com sucesso!");
+
+
+    }
+
 }

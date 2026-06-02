@@ -62,7 +62,7 @@
 
 
     .table {
-      border-radius: 12px;
+      /* border-radius: 12px; */
       overflow: hidden;
     }
 
@@ -108,7 +108,7 @@
     }
 
     .form-control, .form-select {
-      border-radius: 12px;
+      /* border-radius: 12px; */
       padding: 12px 16px;
       border: 1px solid #e2e8f0;
     }
@@ -150,11 +150,7 @@
       --primary-dark: #059669;
     }
 
-    body {
 
-      background: #f8fafc;
-      font-family: 'Segoe UI', system-ui, sans-serif;
-    }
      .diet-card {
       transition: all 0.3s ease;
       border-radius: 16px;
@@ -189,10 +185,21 @@
       border-color: #10b981;
       transform: scale(1.02);
     }
+   .weight-card {
+      transition: all 0.3s ease;
+    }
 
+    .trend-up { color: #ef4444; }
+    .trend-down { color: #10b981; }
+
+    .table th {
+      background: #f8fafc;
+      font-weight: 500;
+    }
 
 
   </style>
+  @stack("styles")
 </head>
 <body>
 
@@ -209,6 +216,10 @@
 
       <!-- TOP NAV -->
         @include("layouts.admin.navbar")
+
+
+
+
 
 
         @yield("content")

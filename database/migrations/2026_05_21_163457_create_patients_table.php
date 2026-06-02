@@ -18,12 +18,11 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string("phone")->nullable();
             $table->string("image")->nullable();
-            $table->decimal("weight",5,2)->nullable();
             $table->date('birth_date')->nullable();
             $table->decimal('height', 5, 2)->nullable();
-            $table->decimal("age",5, 2)->nullable();
+            $table->integer("age")->nullable();
             $table->text('notes')->nullable();
-            $table->string("objective")->nullable();
+            $table->enum("objective",["Emagrecimento","Hipertrofia","Definição","Manutenção","Recomposta Corporal"])->nullable();
             $table->text("dietary_restrictions")->nullable();
             $table->enum("gender",["M","F","O"]);
             $table->enum("food_preferences",["Vegetariano","Low Carb","Sem Glúten"])->nullable();

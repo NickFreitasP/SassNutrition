@@ -19,7 +19,7 @@ class CreatePatientUseCase
             'height' => $dto->height,
             'notes' => $dto->notes,
             'phone' => $dto->phone,
-            'weight' => $dto->weight,
+            // 'weight' => $dto->weight,
             'age' => $dto->age,
             'objective' => $dto->objective,
             'dietary_restrictions' => $dto->dietaryRestrictions,

@@ -5,15 +5,8 @@ use App\Interfaces\Web\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Interfaces\Web\Controllers\PatientController;
 use App\Interfaces\Web\Controllers\DietController;
+use App\Interfaces\Web\Controllers\WeightEntryController;
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -46,10 +39,8 @@ Route::middleware('auth')->group(function () {
 
    Route::controller(DietController::class)->group(function(){
 
-
     // ROUTE VIEW PARA LISTAR TODAS AS DIETAS POR PACIENTE
      Route::get("/diets/{patient}","index")->name("diets.index");
-
 
      // ROUTE VIEW PARA UPLOAD DE NOVA DIETA
      Route::get("/diets/create/{patient}","create")->name("diets.create");
@@ -60,10 +51,40 @@ Route::middleware('auth')->group(function () {
      // ROUTE VIEW PARA VIZUALIZAÇÃO DE DIETA
      Route::get("/diets/show/{patient}/{diet}","show")->name("diets.show");
 
-   });
+     // ROUTE PARA DELETAR DIETA
+     Route::delete("/patients/diets/destroy/{diet}/{patient}","destroy")->name("diets.destroy");
+
+    });
 
 
 });
 
+
+// ROTAS GERENCIADAS PELO WEIGHTENTRY  CONTROLLLER
+
+Route::middleware('auth')->group(function () {
+
+   Route::controller(WeightEntryController::class)->group(function(){
+
+
+    // ROUTE VIEW PARA LISTAR TODAS O HISTÓRICO DE PESOS POR PACIENTE
+     Route::get("/patients/weight_entry/{patient}","index")->name("weightentry.index");
+
+    //  ROUTE VIEW PARA UPLOAD DE NOVO PESO
+     Route::get("/patients/weight_entry/create/{patient}","create")->name("weightentry.create");
+
+    // ROUTE VIEW PARA CADASTRO DE PESO
+     Route::post("/patients/weight_entry/store/{patient}","store")->name("weightentry.store");
+
+     // ROUTE VIEW PARA CADASTRO DE PESO
+     Route::delete("/patients/weight_entry/destroy/{weightEntry}/{patient}","destroy")->name("weightentry.destroy");
+
+     // ROUTE VIEW PARA VIZUALIZAÇÃO DE DIETA
+    //  Route::get("/diets/show/{patient}/{diet}","show")->name("diets.show");
+
+   });
+
+
+});
 
 require __DIR__.'/auth.php';

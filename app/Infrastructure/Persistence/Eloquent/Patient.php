@@ -43,6 +43,11 @@ class Patient extends Model
     return $this->hasMany(Diet::class);
    }
 
+    public function weightEntries(): HasMany
+   {
+    return $this->hasMany(WeightEntry::class);
+   }
+
 
 
 }

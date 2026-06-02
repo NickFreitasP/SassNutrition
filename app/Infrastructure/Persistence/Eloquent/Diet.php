@@ -4,6 +4,7 @@ namespace App\Infrastructure\Persistence\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Http\RedirectResponse;
 
 class Diet extends Model
 {
@@ -27,7 +28,6 @@ class Diet extends Model
     return  $this->belongsTo(Patient::class);
 
    }
-
 
 
 }

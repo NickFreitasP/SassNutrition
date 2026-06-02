@@ -9,8 +9,8 @@
 
 
         <li><a href="{{Route("dashboard.index")}}"  class="nav-link px-3 py-3 {{ Route::is("dashboard.index") ? "active": "" }}"></i> Dashboard</a></li>
-        <li><a href="{{Route("patients.index")}}" class="nav-link px-3 py-3 {{ Route::is("patients.index") ? "active": "" }}"><i class="fas fa-users me-3"></i> Clientes</a></li>
-        <li><a  href="{{Route("patients.create")}}" class="nav-link px-3 py-3 {{ Route::is("patients.create") ? "active": "" }}"><i class="fas fa-users me-3"></i> Novo Cliente</a></li>
+        <li><a href="{{Route("patients.index")}}" class="nav-link px-3 py-3 {{ Route::is("patients.index") ? "active": "" }}"><i class="fas fa-users me-3"></i> Pacientes</a></li>
+        <li><a  href="{{Route("patients.create")}}" class="nav-link px-3 py-3 {{ Route::is("patients.create") ? "active": "" }}"><i class="fas fa-users me-3"></i> Novo Paciente</a></li>
         <li><a href="#" class="nav-link px-3 py-3"><i class="fas fa-utensils me-3"></i> Planos Alimentares</a></li>
         <li><a href="#" class="nav-link px-3 py-3"><i class="fas fa-chart-line me-3"></i> Nutricionistas</a></li>
         <li><a href="#" class="nav-link px-3 py-3"><i class="fas fa-calendar me-3"></i> Agendamentos</a></li>
