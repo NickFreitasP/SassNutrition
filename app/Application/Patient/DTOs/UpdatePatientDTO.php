@@ -12,7 +12,6 @@ class UpdatePatientDTO
         public readonly ?float $height,
         public readonly ?string $notes,
         public readonly ?string $phone,
-        public readonly ?float $weight,
         public readonly ?string $image,
         public readonly ?string $age,
         public readonly ?string $objective,

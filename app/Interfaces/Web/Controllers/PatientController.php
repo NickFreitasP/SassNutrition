@@ -71,6 +71,12 @@ class PatientController
 
     public function show(Patient $patient): View
     {
+
+        $entryWeight = $patient
+        ->weightEntries()
+        ->latest('recorded_at')
+        ->paginate(10);
+
         $lastDiet = $patient
             ->diets()
             ->latest('uploaded_at')
@@ -98,7 +104,8 @@ class PatientController
             'lastDiet',
             'lastWeight',
             'recentWeights',
-            'recentDiets'
+            'recentDiets',
+            'entryWeight'
         ));
     }
 
@@ -124,7 +131,6 @@ class PatientController
         height: $request->height,
         notes: "",
         phone: $request->phone,
-        weight: $request->weight,
         image: $request->image,
         age: $request->age,
         objective: $request->objective,

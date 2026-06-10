@@ -1,20 +1,55 @@
- <div class="col-lg-2 col-md-3 sidebar p-4 d-none d-md-block">
-      <div class="d-flex align-items-center mb-5">
-        <i class="fas fa-leaf fa-2x text-success me-3"></i>
-        <h4 class="fw-bold mb-0">NutriFlow</h4>
-      </div>
+<div class="main-sidebar sidebar-style-2" style="background-color:#62cdc0;">
+    <aside id="sidebar-wrapper">
+        <div class="sidebar-brand">
+            <a href="{{route("dashboard.index")}}" style="color: white">NUTRIFLOW</a>
+        </div>
+        <div class="sidebar-brand sidebar-brand-sm">
+            <a href="index.html">St</a>
+        </div>
+        <ul class="sidebar-menu">
+            <hr style="background-color: rgba(255, 255, 255, 0.342);width:80%;">
+            <li class="menu-header ml-3" style="color: white;font-weight:bold;">Painel Administrativo</li>
+            <hr style="background-color: rgba(255, 255, 255, 0.342);width:80%;">
 
-      <ul class="nav flex-column gap-2">
+
+             {{-- <li class="menu-header">Patients</li> --}}
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-chart-pie"></i>
+                    <span>Painel Administrativo</span></a>
+                <ul class="dropdown-menu card " style="margin:0px auto;width:100%; ">
+                    <div class="card" style="width: 90%;margin:0px auto">
+                         <div class="card-body">
+                    <li><a class="nav-link" href="{{ route('dashboard.index') }}">Home</a></li>
+                    {{-- <li><a class="nav-link" href="{{ route('patients.create') }}">Novo Paciente</a></li> --}}
+                         </div>
+                    </div>
+
+                    {{-- <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li> --}}
+
+
+                </ul>
+            </li>
+
+            {{-- <li class="menu-header">Patients</li> --}}
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i>
+                    <span>Patients</span></a>
+                <ul class="dropdown-menu card " style="margin:0px auto;width:100%; ">
+                    <div class="card" style="width: 90%;margin:0px auto">
+                         <div class="card-body">
+                    <li><a class="nav-link" href="{{ route('patients.index') }}">Todos Pacientes</a></li>
+                    <li><a class="nav-link" href="{{ route('patients.create') }}">Novo Paciente</a></li>
+                         </div>
+                    </div>
+
+                    {{-- <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li> --}}
+
+
+                </ul>
+            </li>
+        </ul>
 
 
 
-        <li><a href="{{Route("dashboard.index")}}"  class="nav-link px-3 py-3 {{ Route::is("dashboard.index") ? "active": "" }}"></i> Dashboard</a></li>
-        <li><a href="{{Route("patients.index")}}" class="nav-link px-3 py-3 {{ Route::is("patients.index") ? "active": "" }}"><i class="fas fa-users me-3"></i> Pacientes</a></li>
-        <li><a  href="{{Route("patients.create")}}" class="nav-link px-3 py-3 {{ Route::is("patients.create") ? "active": "" }}"><i class="fas fa-users me-3"></i> Novo Paciente</a></li>
-        <li><a href="#" class="nav-link px-3 py-3"><i class="fas fa-utensils me-3"></i> Planos Alimentares</a></li>
-        <li><a href="#" class="nav-link px-3 py-3"><i class="fas fa-chart-line me-3"></i> Nutricionistas</a></li>
-        <li><a href="#" class="nav-link px-3 py-3"><i class="fas fa-calendar me-3"></i> Agendamentos</a></li>
-        <li><a href="#" class="nav-link px-3 py-3"><i class="fas fa-chart-bar me-3"></i> Relatórios</a></li>
-        <li><a href="#" class="nav-link px-3 py-3"><i class="fas fa-cog me-3"></i> Configurações</a></li>
-      </ul>
-    </div>
+    </aside>
+</div>

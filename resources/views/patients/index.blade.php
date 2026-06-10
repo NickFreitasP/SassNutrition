@@ -1,192 +1,109 @@
 @extends('layouts.admin.main')
 @section('content')
-    <div class="container-fluid">
-        <div class="card">
-            <!-- Cabeçalho da Tabela -->
-            <div class="card-header bg-white border-0 pt-4  ">
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
-
-
-                    <div class="d-flex  gap-3 w-100  w-md-auto" style="justify-content:space-between">
-                        <h4 class="fw-bold mb-0  d-flex " style="align-items: center;color:#673FD7;">
-                          Pacientes
-                        </h4>
-                        <div>
-                            <form class="row g-3" action="{{ route('patients.index') }}" method="get">
-                                @csrf
-
-                                <div class="col-auto">
-                                    <input class="form-control" name="search" placeholder="Pesquise por pacientes">
-                                </div>
-                                <div class="col-auto">
-                                    <button type="submit" class="btn btn-success mb-3 text-center"
-                                        style="padding: 12px 16px;border-style: none; background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);"><i
-                                            class="fas fa-search "></i></button>
-                                </div>
-                            </form>
-
-
-                        </div>
-
-                        <button class="button-36" role="button">
-                            <a href="{{ Route('patients.create') }}"
-                                style="color: white;text-decoration:none;font-weight: bold;"> Novo Paciente </a>
-                        </button>
-                    </div>
-                </div>
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>Pacientes</h1>
             </div>
-            @session('success')
-                <div class="alert alert-success">{{ session("success") }}</div>
-            @endsession
 
-            <!-- Tabela -->
-            <div class="table-responsive mt-2 rounded-0">
-                <table class="table table-hover mb-0 " id="clientsTable">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Email</th>
-                            {{-- <th>Plano</th> --}}
-                            <th>Objetivo</th>
-                            {{-- <th>Progresso</th> --}}
-                            {{-- <th>Status</th> --}}
-                            {{-- <th>Última Consulta</th> --}}
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($patients as $patient)
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-3">
-                                        <img src="{{ asset($patient->image) }}" class="avatar" alt="">
-                                        <div>
-                                            <strong>{{ $patient->name }}</strong><br>
-                                            {{-- <small class="text-muted">CPF: 000.000.000-00</small> --}}
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>{{ $patient->email }}</td>
-                                {{-- <td><span class="badge bg-success">Premium</span></td> --}}
-                                <td >{{ $patient->objective }}</td>
-                                {{-- <td>
-                <div class="d-flex align-items-center gap-2">
-                  <div class="progress flex-grow-1">
-                    <div class="progress-bar bg-success" style="width: 78%"></div>
-                  </div>
-                   <small class="text-muted fw-medium">78%</small>
-                </div>
-              </td> --}}
-                                {{-- <td><span class="status-badge bg-success text-white">Ativo</span></td> --}}
-                                {{-- <td>18/05/2026</td> --}}
-                                <td >
+            <div class="row">
+
+                <div class=" col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Pacientes</h4>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-md">
+                                    <tr class="text-center">
+                                        <th>Nome</th>
+                                        <th>Data de criação</th>
+                                        <th>Email</th>
+                                        <th>Telefone</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                    @foreach ($patients as $patient )
+
+                                    @endforeach
+                                    <tr style="color: rgb(46, 42, 42)" class="text-center">
+                                        {{-- <td>1</td> --}}
+                                        <td> <img class="rounded-circle mr-1"width="40px;height:40px;" src="{{asset("$patient->image")}}" alt=""> {{$patient->name}}</td>
+                                        <td>2017-01-09</td>
+                                         <td>{{$patient->email}}</td>
+                                         <td>{{$patient->phone}}</td>
+
+                                        <td>
+                                            <div class="badge badge-success">Active</div>
+                                        </td>
+                                         <td >
                                     <a href="{{ route('diets.index', ['patient' => $patient->id]) }}" title="Dietas"
-                                        class="btn btn-sm a-link me-1"><i class="fas fa-utensils me-3"
-                                        style="color:#673FD7;border-color:#673FD7;"></i>
+                                        class="btn btn-sm a-link me-1" style="background-color: #e9e9ed">
+                                        <i class="fas fa-utensils me-3"
+                                        style="color:#673FD7;border-color:#673FD7;">
+                                        </i>
                                     </a>
                                     <a href="{{ route('weightentry.index', ['patient' => $patient->id]) }}"
                                         title="Histórico de pesos" class="btn btn-sm a-link s me-1"
-                                        style="color:#673FD7;"><i class="fas fa-weight"></i>
+                                        style="background-color: #e9e9ed">
+                                        <i class="fas fa-weight"></i>
                                     </a>
+                                     <a href="{{ route('consultations.index', ['patient' => $patient->id]) }}"
+                                        title="Histórico de Consultas" class="btn btn-sm a-link s me-1"
+                                       style="background-color: #e9e9ed">
+                                       <i class="fas fa-notes-medical"></i>
+                                    </a>
+
                                     <a href="{{ route('patients.show', ['patient' => $patient->id]) }}"
-                                        title="Dados do paciente" class="btn btn-sm a-link  me-1" style="color:#673FD7;"><i
-                                            class="fas fa-eye"></i>
+                                        title="Dados do paciente" class="btn btn-sm a-link  me-1" style="background-color: #e9e9ed">
+                                        <i class="fas fa-eye"></i>
                                     </a>
 
                                     <a href="{{ route('patients.edit', ['patient' => $patient->id]) }}"
-                                        title="Editar" class="btn btn-sm a-link  me-1" style="color:#673FD7;">
+                                        title="Editar" class="btn btn-sm a-link  me-1"  style="background-color: #e9e9ed">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <form class="" style="display: inline-block" action="{{ route('patients.destroy', ['patient' => $patient->id]) }}" method="post">
+                                    <form class="" style="display: inline-block;background-color:transparent;" action="{{ route('patients.destroy', ['patient' => $patient->id]) }}" method="post">
                                     @csrf
                                     @method("DELETE")
                                     <button
                                        onclick="return confirm('Tem certeza que deseja remover este paciente?')"
-                                       style="color:#cc3333;border-color:#cc3333;display:inline;"
+                                       style="background-color: #e9e9ed"
                                        title="Excluir paciente" class="btn btn-sm me-1" >
-                                      <i class="fas fa-trash"></i>
+                                      <i class="fas fa-trash text-danger" style="color:#cc3333;"></i>
                                     </button>
                                     </form>
                                 </td>
-                            </tr>
-                        @endforeach
+                                    </tr>
 
-
-
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Rodapé com Paginação -->
-            <div class="card-footer bg-white border-0 py-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <small class="text-muted">Mostrando 1-10 de 284 clientes</small>
-                    <nav>
-                        <ul class="pagination pagination-sm mb-0">
-                            <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Próximo</a></li>
-                        </ul>
-                    </nav>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer text-right">
+                            <nav class="d-inline-block">
+                                <ul class="pagination mb-0">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1"><i
+                                                class="fas fa-chevron-left"></i></a>
+                                    </li>
+                                    <li class="page-item active"><a class="page-link" href="#">1 <span
+                                                class="sr-only">(current)</span></a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">2</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
                 </div>
+
+
             </div>
-        </div>
+        </section>
     </div>
 @endsection
-@push('styles')
-    <style>
-        /* CSS */
-        .button-36,
-        .h4-top {
-            background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
-            border-radius: 8px;
-            border-style: none;
-            box-sizing: border-box;
-            color: #FFFFFF;
-            cursor: pointer;
-            flex-shrink: 0;
-            font-family: "Inter UI", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-            font-size: 16px;
-            font-weight: 500;
-            height: 3rem;
-            padding: 0 1.6rem;
-            text-align: center;
-            text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
-            transition: all .5s;
-            user-select: none;
-            -webkit-user-select: none;
-            touch-action: manipulation;
-        }
-
-        .button-36:hover,
-        .h4-top {
-            box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
-            transition-duration: .1s;
-        }
-
-        .a-link {
-            color: #673FD7;
-            border-color: #673FD7;
-            "
-
-        }
-        .btn:hover{
-          border-color:#455EB5;
-        }
-        a-link:hover {
-            color: #673FD7;
-            border-color: #673FD7;
-            "
-
-        }
-        @media (min-width: 768px) {
-
-            .button-36,
-            .h4-top {
-                padding: 0 2.6rem;
-            }
-        }
-    </style>
-@endpush
