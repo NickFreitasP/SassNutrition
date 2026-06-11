@@ -25,7 +25,7 @@ class StoreConsultationRequest extends FormRequest
         return [
 
         'appointment_date' => 'required|date',
-         'appointment_time' => 'required',
+        'appointment_time' => 'required',
         'notes' => 'nullable|string|max:5000',
         'title' =>"string|max:255"
 

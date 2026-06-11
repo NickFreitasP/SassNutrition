@@ -8,7 +8,7 @@
                 <h1 >Cadastro de Dieta</h1>
                 <div>
                   <p> <a style="text-decoration:none;" class="text-muted" href="{{ route('patients.index') }}">Pacientes</a> >
-                  <a style=" text-decoration:none;" class="text-muted" href="{{ route('diets.index',['patient' => $patient->id]) }}">Hitórico de dietas </a> > <span style="color:#df4d46 "> Cadastro de dieta</span></p>
+                  <a style=" text-decoration:none;" class="text-muted" href="{{ route('diets.index',['patient' => $patient->id]) }}">Hitórico de dietas </a> > <span style="color:#62cdc0 "> Cadastro de dieta</span></p>
 
                 </div>
              </div>
@@ -74,7 +74,7 @@
                                     onclick="window.history.back()">
                                     Cancelar
                                 </button>
-                                 <button type="submit" style="color:white;background-color:#10b981;" class="btn  px-5 rounded-pill">
+                                 <button type="submit" style="color:white;background-color:#62cdc0;" class="btn  px-5 rounded-pill">
                                     <i class="fas fa-save me-2"></i> Salvar Dieta
                                 </button>
                             </div>

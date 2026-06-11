@@ -3,6 +3,7 @@
 namespace App\Application\Patient\UseCases;
 
 use App\Application\Patient\DTOs\DashboardStatsDTO;
+use App\Infrastructure\Persistence\Eloquent\Consultation;
 use App\Infrastructure\Persistence\Eloquent\Diet;
 use App\Infrastructure\Persistence\Eloquent\Patient;
 use App\Infrastructure\Persistence\Eloquent\WeightEntry;
@@ -28,8 +29,12 @@ class DashboardStatsUseCase
     // ULTIMOS 5 PACIENTES CADASTRADOS
     $recentPatients = Patient::where("nutritionist_id",$nutritionistId)->latest()->take(5)->get();
 
+    // TOTAL DE CONSULTAS NO MES
+    $consultationsInThisMonth =  Consultation::whereHas("patient",fn ($query) => $query->where("nutritionist_id",$nutritionistId))->count();
 
-   return new DashboardStatsDTO($totalPatients,$totalDiets,$totalWeights,$newPatientsThisMonth,$recentPatients);
+
+
+    return new DashboardStatsDTO($totalPatients,$totalDiets,$totalWeights,$newPatientsThisMonth,$recentPatients,$consultationsInThisMonth);
 
  }
 

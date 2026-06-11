@@ -202,6 +202,9 @@
 
     }
 
+    .div-icons-dash  .fa-utensils:before,.div-icons-dash .fa-weight:before{
+       color: white
+    }
 </style>
 @stack("style")
 </head>

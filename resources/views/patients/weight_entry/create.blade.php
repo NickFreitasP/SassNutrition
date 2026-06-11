@@ -62,7 +62,9 @@
                                     <label class="form-label fw-medium">Data da Medição *</label>
                                     <input name="recorded_at" type="date" class="form-control" id="weightDate" required>
                                 </div>
-
+                                 @error('recorded_at')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                 <!-- Peso -->
                                 <div class="col-md-6">
                                     <label class="form-label fw-medium">Peso (kg) *</label>
@@ -70,6 +72,9 @@
                                         <input type="number" step="0.1" class="form-control fs-4 fw-semibold"
                                             placeholder="68.5" id="weightValue" required name="weight">
                                         <span class="input-group-text">kg</span>
+                                           @error("weight")
+                                              <div class="alert alert-danger">{{ $message }}</div>
+                                          @enderror
                                     </div>
                                 </div>
 

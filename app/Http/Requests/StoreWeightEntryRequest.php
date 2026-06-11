@@ -25,8 +25,8 @@ class StoreWeightEntryRequest extends FormRequest
     {
         return [
 
-         "appointment_date" => "datetime|required",
-         "notes" => ""
+            "recorded_at"=> "required|date",
+            "weight" => "required|numeric"
 
         ];
     }

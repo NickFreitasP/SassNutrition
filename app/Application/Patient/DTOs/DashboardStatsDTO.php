@@ -13,6 +13,7 @@ class DashboardStatsDTO
         public readonly int $totalWeights,
         public readonly int $newPatientsThisMonth,
         public readonly Collection $recentPatients,
+        public readonly int $consultationsInThisMonth
     ) {}
 
 
