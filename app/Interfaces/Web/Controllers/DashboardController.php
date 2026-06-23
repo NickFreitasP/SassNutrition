@@ -13,12 +13,18 @@ class DashboardController
 
     $stats = $useCase->execute(auth()->id());
 
-    return view('dashboard.teste
+    return view('dashboard.index
     ',["stats" => $stats]);
 
   }
 
 
+    public function suporte(DashboardStatsUseCase $useCase ) : View
+   {
+
+    return view('dashboard.suporte');
+
+  }
 }
 
 

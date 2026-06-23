@@ -66,9 +66,9 @@ class DietController
         // GRAVAÇÃO DOS DADOS DENTRO DO DB
         $useCase->execute($dto);
 
-        return   redirect()
-            ->route('diets.index', $patient)
-            ->with('success', 'Dieta enviada com sucesso.');
+        return  redirect()
+               ->route('diets.index', $patient)
+               ->with('success', 'Dieta enviada com sucesso.');
     }
 
     public function show( Patient $patient, Diet $diet): View

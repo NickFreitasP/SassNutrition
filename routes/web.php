@@ -1,11 +1,20 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Infrastructure\Persistence\Eloquent\Consultation;
 use App\Interfaces\Web\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Interfaces\Web\Controllers\PatientController;
 use App\Interfaces\Web\Controllers\DietController;
 use App\Interfaces\Web\Controllers\WeightEntryController;
+use App\Interfaces\Web\Controllers\ConsultationController;
+
+Route::get("/cards",function(){
+    return view("cards");
+
+
+});
+
 
 
 Route::middleware('auth')->group(function () {
@@ -15,11 +24,15 @@ Route::middleware('auth')->group(function () {
 });
 
 
+
+
+
 Route::middleware("auth")->group(function (){
 
    Route::controller(DashboardController::class)->group(function(){
 
     Route::get("/dashboard","index")->name("dashboard.index");
+    Route::get("/suporte","suporte")->name("dashboard.suporte");
 
    });
 
@@ -83,6 +96,32 @@ Route::middleware('auth')->group(function () {
     //  Route::get("/diets/show/{patient}/{diet}","show")->name("diets.show");
 
    });
+
+   Route::middleware('auth')->group(function () {
+
+    Route::controller(ConsultationController::class)->group(function(){
+
+    // ROUTE VIEW PARA LISTAR TODAS AS CONSULTAS POR PACIENTE
+     Route::get("/patients/consultas/{patient}","index")->name("consultations.index");
+
+     // ROUTE VIEW PARA UPLOAD DE NOVA CONSULTA
+     Route::get("/patients/consultas/create/{patient}","create")->name("consultations.create");
+
+     // ROUTE HANDLER UPLOAD DE NOVA CONSULTA
+     Route::post("/patients/consultas/store/{patient}","store")->name("consultations.store");
+
+     // ROUTE VIEW PARA VIZUALIZAÇÃO DE CONSULTA
+     Route::get("/patients/consultas/show/{patient}/{consultation}","show")->name("consultations.show");
+
+     // ROUTE PARA DELETAR DIETA
+    //  Route::delete("/patients/diets/destroy/{diet}/{patient}","destroy")->name("diets.destroy");
+
+    });
+
+
+});
+
+
 
 
 });

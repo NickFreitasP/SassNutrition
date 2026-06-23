@@ -20,7 +20,6 @@ class UpdatePatientUseCase
             'height' => $dto->height,
             'notes' => $dto->notes,
             'phone' => $dto->phone,
-            'weight' => $dto->weight,
             'image' => $dto->image,
             'age' => $dto->age,
             'objective' => $dto->objective,

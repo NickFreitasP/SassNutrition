@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreWeightEntryRequest extends FormRequest
+class StoreConsultationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,6 @@ class StoreWeightEntryRequest extends FormRequest
     {
         return true;
     }
-
 
     /**
      * Get the validation rules that apply to the request.
@@ -25,8 +24,10 @@ class StoreWeightEntryRequest extends FormRequest
     {
         return [
 
-            "recorded_at"=> "required|date",
-            "weight" => "required|numeric"
+        'appointment_date' => 'required|date',
+        'appointment_time' => 'required',
+        'notes' => 'nullable|string|max:5000',
+        'title' =>"string|max:255"
 
         ];
     }
