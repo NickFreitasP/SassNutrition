@@ -13,7 +13,6 @@ class DashboardController
 
     $stats = $useCase->execute(auth()->id());
 
-    // dd($stats);
     return view('dashboard.index
     ',["stats" => $stats]);
 

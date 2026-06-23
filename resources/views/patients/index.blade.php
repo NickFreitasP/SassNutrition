@@ -25,11 +25,9 @@
                                         <th>Ações</th>
                                     </tr>
                                     @foreach ($patients as $patient )
-
-                                    @endforeach
                                     <tr style="color: rgb(46, 42, 42)" class="text-center">
                                         {{-- <td>1</td> --}}
-                                        <td> <img class="rounded-circle mr-1"width="40px;height:40px;" src="{{asset("$patient->image")}}" alt=""> {{$patient->name}}</td>
+                                        <td> <img class="rounded-circle mr-1" width="50" height="50" src="{{asset("$patient->image")}}" alt=""> {{$patient->name}}</td>
                                         <td>2017-01-09</td>
                                          <td>{{$patient->email}}</td>
                                          <td>{{$patient->phone}}</td>
@@ -76,7 +74,7 @@
                                     </form>
                                 </td>
                                     </tr>
-
+                                @endforeach
                                 </table>
                             </div>
                         </div>

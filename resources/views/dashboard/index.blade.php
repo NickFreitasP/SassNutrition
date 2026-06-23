@@ -7,11 +7,12 @@
             </div>
             <div class="row">
 
-                <div class="col-12 col-lg-6">
+                {{-- COLUNA ESQUERDA --}}
+                <div class="col-lg-6">
 
-                    {{-- // Pacientes recentes --}}
-                    {{-- <i class="fas fa-clock"></i> --}}
+                    {{-- Cards de estatísticas --}}
                     <div class="row">
+
                         <div class="col-lg-6 ">
                             <div class="card card-statistic-1">
                                 <div class="card-icon bg-primary">
@@ -27,8 +28,6 @@
                                 </div>
                             </div>
                         </div>
-
-
 
                         <div class="col-lg-6  ">
                             <div class="card card-statistic-1">
@@ -97,56 +96,174 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon" style="background-color:#9e29b6">
 
-
-                    </div>
-
-
-
-                </div>
-
-                <div class="col-12 col-lg-6" style="display: flex;flex-direction:column;">
-                    <div class="col-lg-12 col-md-12 col-12 col-sm-12">
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="d-inline">Últimos Pacientes</h4>
-                                <div class="card-header-action">
-                                    <a href="{{ route('patients.index') }}" class="btn btn-primary">Ver todos</a>
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>Consultas</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        {{ $stats->consultationsInThisMonth }}
+                                    </div>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <ul class="list-unstyled list-unstyled-border">
-                                    @foreach ($stats->recentPatients as $patient)
-                                        <li class="media">
+                        </div>
+                    </div>
 
-                                            <img class="mr-3 rounded-circle" width="50"
-                                                src="{{ asset($patient->image) }}" alt="avatar">
-                                            <div class="media-body">
-                                                <div class="badge badge-pill badge-primary mb-1 float-right"> <a
-                                                        style="color:white;"
-                                                        href="{{ route('patients.show', ['patient' => $patient->id]) }}">Ver
-                                                        Paciente</a> </div>
-                                                <h6 class="media-title"><a href="#">{{ $patient->name }}</a></h6>
-                                                <div class="text-small text-muted"> Cadatradado em
-                                                    {{ $patient->created_at->format('d/m/Y') }} <span {{-- class="text-primary">Now</span></div> --}}
-                                                        </div>
-                                        </li>
-                                    @endforeach
+                    {{-- Últimos pacientes --}}
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Últimos Pacientes</h4>
 
-                                </ul>
+                            <div class="card-header-action">
+                                <a href="{{ route('patients.index') }}" class="btn btn-primary">
+                                    Ver todos
+                                </a>
                             </div>
                         </div>
 
+                        <div class="card-body">
+
+                            <ul class="list-unstyled list-unstyled-border">
+
+                                @foreach ($stats->recentPatients as $patient)
+                                    <li class="media">
+
+                                        <img class="mr-3 rounded-circle" width="50" height="50"
+                                            src="{{ asset($patient->image) }}">
+
+                                        <div class="media-body">
+
+                                            <div class="float-right">
+
+                                                <a href="{{ route('patients.show', $patient->id) }}"
+                                                    class="btn btn-sm btn-primary">
+                                                    Ver Paciente
+                                                </a>
+
+                                            </div>
+
+                                            <h6 class="media-title">
+                                                {{ $patient->name }}
+                                            </h6>
+
+                                            <div class="text-muted">
+                                                Cadastrado em
+                                                {{ $patient->created_at->format('d/m/Y') }}
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                @endforeach
+
+                            </ul>
+
+                        </div>
                     </div>
+
+                </div>
+
+                {{-- COLUNA DIREITA --}}
+                <div class="col-lg-6">
+
+                    <div class="card h-100">
+
+                        <div class="card-header">
+                            <h4>
+                                <i class="fas fa-chart-pie"></i>
+                                Distribuição de IMC
+                            </h4>
+                        </div>
+
+                        <div class="card-body">
+
+                            <div style="height:350px;">
+                                <canvas id="imcChart"></canvas>
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
+
+                                <div class="col-md-4 mb-3">
+                                    <div class="border rounded text-center p-3">
+                                        <strong class="text-primary d-block">
+                                            {{ $stats->imcStats['Abaixo do peso'] ?? 0 }}
+                                        </strong>
+                                        Abaixo do peso
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <div class="border rounded text-center p-3">
+                                        <strong class="text-success d-block">
+                                            {{ $stats->imcStats['Peso normal'] ?? 0 }}
+                                        </strong>
+                                        Peso normal
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <div class="border rounded text-center p-3">
+                                        <strong class="text-warning d-block">
+                                            {{ $stats->imcStats['Sobrepeso'] ?? 0 }}
+                                        </strong>
+                                        Sobrepeso
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <div class="border rounded text-center p-3">
+                                        <strong class="text-danger d-block">
+                                            {{ $stats->imcStats['Obesidade grau I'] ?? 0 }}
+                                        </strong>
+                                        Obesidade I
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <div class="border rounded text-center p-3">
+                                        <strong style="color:#8B5CF6" class="d-block">
+                                            {{ $stats->imcStats['Obesidade grau II'] ?? 0 }}
+                                        </strong>
+                                        Obesidade II
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <div class="border rounded text-center p-3">
+                                        <strong class="text-dark d-block">
+                                            {{ $stats->imcStats['Obesidade grau III'] ?? 0 }}
+                                        </strong>
+                                        Obesidade III
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
-            <div class="card-body p-4">
-                            <div style="height: 300px;">
-                                <canvas id="weightChart"></canvas>
-                            </div>
-            </div>
+
+
+
+
+
+
+
+
+
+
+
 
 
             {{-- <div class="row">
@@ -758,88 +875,42 @@
         </section>
     </div>
 @endsection
-@if (isset($entryWeight))
-    @push('script')
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-        <script>
-            // Dados preparados de forma mais segura
-            const chartData = @json(
-                $entryWeight->map(function ($item) {
-                        return [
-                            'date' => $item->recorded_at->format('d/m/Y'),
-                            'weight' => (float) $item->weight,
-                        ];
-                    })->reverse()->values());
 
-            const labels = chartData.map(item => item.date);
-            const weights = chartData.map(item => item.weight);
+@push('script')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script>
+        const ctx = document.getElementById('imcChart');
+
+        new Chart(ctx, {
+
+            type: 'doughnut',
+
+            data: {
+
+                labels: @json(array_keys($stats->imcStats)),
+
+                datasets: [{
+
+                    data: @json(array_values($stats->imcStats)),
+
+                    backgroundColor: [
+                        '#3B82F6',
+                        '#10B981',
+                        '#F59E0B',
+                        '#EF4444',
+                        '#8B5CF6',
+                        '#6B7280'
+                    ]
+
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
 
 
-            new Chart(document.getElementById('weightChart'), {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Peso (kg)',
-                        data: weights,
-                        borderColor: '#10b981',
-                        borderWidth: 5,
-                        tension: 0.4,
-                        pointRadius: 6,
-                        pointHoverRadius: 9,
-                        pointBackgroundColor: '#ffffff',
-                        pointBorderWidth: 3,
-                        pointBorderColor: '#10b981',
-                        backgroundColor: 'rgba(16, 185, 129, 0.08)',
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
-                            padding: 14,
-                            bodyFont: {
-                                size: 15,
-                                weight: '600'
-                            },
-                            callbacks: {
-                                label: (context) => context.raw + " kg"
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: false,
-                            grid: {
-                                color: '#f1f5f9'
-                            },
-                            ticks: {
-                                color: '#64748b',
-                                font: {
-                                    size: 13
-                                }
-                            }
-                        },
-                        x: {
-                            grid: {
-                                color: '#f1f5f9'
-                            },
-                            ticks: {
-                                color: '#64748b',
-                                font: {
-                                    size: 13
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        </script>
-    @endpush
-@endif
+
+        });
+    </script>
+@endpush
